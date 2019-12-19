@@ -14,21 +14,33 @@ self.addEventListener('install', e => {
 
   workbox.routing.registerRoute(
     'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css',
-    new workbox.strategies.StaleWhileRevalidate({
+    new workbox.strategies.CacheFirst({
       cacheName: 'APP_SHELL',
     })
   );
 
   workbox.routing.registerRoute(
-    'service-worker.js',
-    new workbox.strategies.StaleWhileRevalidate({
+    /^https:\/\/fonts\.googleapis\.com/,
+    new workbox.strategies.CacheFirst({
       cacheName: 'APP_SHELL',
+      plugins: [
+        new workbox.cacheableResponse.Plugin({
+          statuses: [0, 200]
+        })
+      ]
     })
   );
 
   workbox.routing.registerRoute(
-    'img/icons/favicon-32x32.png',
-    new workbox.strategies.StaleWhileRevalidate({
+    /^https:\/\/fonts\.gstatic\.com/,
+    new workbox.strategies.CacheFirst({
+      cacheName: 'APP_SHELL'
+    })
+  );
+
+  workbox.routing.registerRoute(
+    /\.(?:png|gif|jpg|jpeg|webp|svg)$/,
+    new workbox.strategies.CacheFirst({
       cacheName: 'APP_SHELL',
     })
   );
