@@ -18,20 +18,38 @@
 import QuoteGrid from "./components/QuoteGrid.vue";
 import NewQuote from "./components/NewQuote.vue";
 import Header from "./components/Header.vue";
+import noteService from "./services/NoteService";
 
 export default {
   data: function() {
     return {
-      quotes: ["Just a Quote to see something"],
+      quotes: [],
       maxQuotes: 10
     };
+  },
+  created() {
+    this.listQuote();
   },
   methods: {
     newQuote(quote) {
       if (this.quotes.length >= this.maxQuotes) {
         return alert("Please delete Quotes first!");
       }
-      this.quotes.push(quote);
+
+      if (!quote) {
+        return alert("Please write the quote first!");
+      }
+
+      noteService.postCreateNote(quote)
+        .then( () => {
+          this.listQuote();
+        });
+    },
+    listQuote() {
+      noteService.getNoteList()
+        .then( res => {
+          this.quotes = res.data.respond.map( note => note.description);
+        });
     },
     deleteQuote(index) {
       this.quotes.splice(index, 1);
