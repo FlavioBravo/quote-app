@@ -15,6 +15,17 @@ router.get('/', function (req, res) {
 
 });
 
+router.get('/:id', function (req, res) {
+  
+  let notes = require('./subs-db.json');
+  const obj = notes.find(((note) => note._id === req.params.id));
+  res.json({
+      ok: true,
+      respond: obj
+  });
+
+});
+
 
 // Post one note
 router.post('/', function (req, res) {

@@ -18,14 +18,14 @@ workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
 
 workbox.routing.registerRoute(
   'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css',
-  new workbox.strategies.CacheFirst({
+  new workbox.strategies.StaleWhileRevalidate({
     cacheName: 'APP_SHELL',
   })
 );
 
 workbox.routing.registerRoute(
   /^https:\/\/fonts\.googleapis\.com/,
-  new workbox.strategies.CacheFirst({
+  new workbox.strategies.StaleWhileRevalidate({
     cacheName: 'APP_SHELL',
     plugins: [
       new workbox.cacheableResponse.Plugin({
@@ -37,7 +37,7 @@ workbox.routing.registerRoute(
 
 workbox.routing.registerRoute(
   /^https:\/\/fonts\.gstatic\.com/,
-  new workbox.strategies.CacheFirst({
+  new workbox.strategies.StaleWhileRevalidate({
     cacheName: 'APP_SHELL'
   })
 );
@@ -47,4 +47,23 @@ workbox.routing.registerRoute(
   new workbox.strategies.CacheFirst({
     cacheName: 'APP_SHELL',
   })
+);
+
+workbox.routing.registerRoute(
+  'http://localhost:3000/api/notes',
+  new workbox.strategies.NetworkFirst({
+    cacheName: 'API_REQUEST'
+  })
+);
+
+workbox.routing.registerRoute(
+  'http://localhost:3000/api/notes',
+  new workbox.strategies.NetworkOnly({
+    plugins: [
+      new workbox.backgroundSync.Plugin('postNote', {
+        maxRetentionTime: 24 * 60 // Retry for max of 24 Hours (specified in minutes)
+      })
+    ]
+  }),
+  'POST'
 );

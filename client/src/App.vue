@@ -8,7 +8,7 @@
     ></app-quote-grid>
     <div class="row">
       <div class="col-sm-12 text-center">
-        <div class="alert alert-info">Info: Click on a Quote to delete it!</div>
+        <div class="alert alert-info">Info: Click on a Quote to go the detail !</div>
       </div>
     </div>
   </div>
@@ -24,7 +24,7 @@ export default {
   data: function() {
     return {
       quotes: [],
-      maxQuotes: 10
+      maxQuotes: 20
     };
   },
   created() {
@@ -48,11 +48,15 @@ export default {
     listQuote() {
       noteService.getNoteList()
         .then( res => {
-          this.quotes = res.data.respond.map( note => note.description);
+          this.quotes = res.data.respond;
         });
     },
     deleteQuote(index) {
-      this.quotes.splice(index, 1);
+      noteService.getNote(index)
+        .then( (res) => {
+          console.log('getById: ',res);
+          this.$router.push({ name: 'about', params: { id: index } });
+        });
     }
   },
   components: {

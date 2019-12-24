@@ -1,4 +1,7 @@
+const path = require('path');
+
 module.exports = {
+    outputDir: path.resolve(__dirname, '../server/public'),
     // ...other vue-cli plugin options...
     pwa: {
       name: 'My App',
@@ -6,7 +9,6 @@ module.exports = {
       msTileColor: '#000000',
       appleMobileWebAppCapable: 'yes',
       appleMobileWebAppStatusBarStyle: 'black',
-  
       // configure the workbox plugin
       workboxPluginMode: 'InjectManifest',
       workboxOptions: {

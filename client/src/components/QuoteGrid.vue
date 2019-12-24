@@ -3,8 +3,8 @@
     <app-quote
       v-for="(quote, index) in quotes"
       :key="index"
-      @click.native="deleteQuote(index)"
-      >{{ quote }}</app-quote
+      @click.native="deleteQuote(quote._id)"
+      >{{ quote.description }}</app-quote
     >
   </div>
 </template>

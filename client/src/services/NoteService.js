@@ -7,6 +7,10 @@ class NoteService {
     return axios.get(url);
   }
 
+  static getNote(id) {
+    return axios.get(`${url}/${id}`);
+  }
+
   static postCreateNote(note) {
     return axios.post(url, { description: note });
   }
