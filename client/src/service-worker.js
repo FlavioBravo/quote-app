@@ -57,6 +57,18 @@ workbox.routing.registerRoute(
 );
 
 workbox.routing.registerRoute(
+  new RegExp("/api/notes/.*"),
+  new workbox.strategies.StaleWhileRevalidate({
+    cacheName: 'API_REQUEST',
+    plugins: [
+      new workbox.expiration.Plugin({
+        maxAgeSeconds: 60 * 2,
+      })
+    ]
+  })
+);
+
+workbox.routing.registerRoute(
   'http://localhost:3000/api/notes',
   new workbox.strategies.NetworkOnly({
     plugins: [
