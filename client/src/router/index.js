@@ -1,6 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import App from "../App.vue";
+import Container from "../components/Container.vue";
 import QuoteDetail from "../components/QuoteDetail.vue";
 
 Vue.use(VueRouter);
@@ -9,7 +9,7 @@ const routes = [
   {
     path: "/",
     name: "home",
-    component: App
+    component: Container
   },
   {
     path: "/about/:id",
@@ -20,7 +20,7 @@ const routes = [
 
 const router = new VueRouter({
   mode: "history",
-  base: process.env.BASE_URL,
+  //base: process.env.BASE_URL,
   routes
 });
 

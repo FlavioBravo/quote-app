@@ -7,11 +7,9 @@
     </div>
   </div>
 </template>
-
 <script>
 export default {};
 </script>
-
 <style>
 .panel-body {
   font-family: "Arizonia", cursive;

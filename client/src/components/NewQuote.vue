@@ -17,7 +17,6 @@
     </form>
   </div>
 </template>
-
 <script>
 export default {
   data: function() {
@@ -33,5 +32,4 @@ export default {
   }
 };
 </script>
-
 <style></style>
